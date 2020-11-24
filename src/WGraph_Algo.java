@@ -127,7 +127,7 @@ public class WGraph_Algo implements weighted_graph_algorithms , Serializable {
             ((WNodeInfo) iter).setVisit(false);
         }
         start.setTag(0);
-        PriorityQueue<node_info> q = new PriorityQueue<>(this.graph.getV());
+        PriorityQueue<node_info> q = new PriorityQueue<>();
         q.add(start);
         while (!q.isEmpty()){
             node_info min = q.poll();
@@ -135,11 +135,17 @@ public class WGraph_Algo implements weighted_graph_algorithms , Serializable {
             for(node_info ni : graph.getV(min.getKey())){
                 double w = min.getTag() + this.graph.getEdge(min.getKey(),ni.getKey());
                 if(!((WNodeInfo)ni).getVisit()) {
-                    if (min.getTag()==Double.MAX_VALUE || w < min.getTag()) {
-                        min.setTag(w);
-                        ((WNodeInfo) ni).setParent((WNodeInfo) min);
-                    }
+                    ni.setTag(w);
+                    ((WNodeInfo) ni).setParent((WNodeInfo) min);
                     ((WNodeInfo)ni).setVisit(true);
+                    q.add(ni);
+                }
+                else {
+                    if(ni != ((WNodeInfo) min).getParent())
+                        if(w<ni.getTag()){
+                            ni.setTag(w);
+                            ((WNodeInfo) ni).setParent((WNodeInfo) min);
+                        }
                 }
             }
         }
@@ -164,7 +170,7 @@ public class WGraph_Algo implements weighted_graph_algorithms , Serializable {
         node_info tempParent = ((WNodeInfo)this.graph.getNode(dest)).getParent();   //sets the temp parent to be the parent of dest
         l.add(this.graph.getNode(dest));
         while(tempParent!=null) {
-            l.add(tempParent);
+            l.addFirst(tempParent);
             int t = tempParent.getKey();
             tempParent = ((WNodeInfo) graph.getNode(t)).getParent();     //sets the temp parent to be the parent of temp parent
         }

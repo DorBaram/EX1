@@ -156,6 +156,7 @@ public class WGraph_Tests {
         WGraph_Algo f = new WGraph_Algo();
         f.init(g);
         assertTrue(f.isConnected());
+        assertEquals(7,f.shortestPathDist(0,99));
     }
 
     @Test
@@ -168,7 +169,7 @@ public class WGraph_Tests {
         WGraph_Algo f = new WGraph_Algo();
         f.init(g);
         assertTrue(f.isConnected());
-        //assertEquals(99,f.shortestPathDist(0,99));
+        assertEquals(99,f.shortestPathDist(0,99));
     }
     @Test
     void copy() {

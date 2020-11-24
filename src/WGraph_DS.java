@@ -222,7 +222,7 @@ public class WGraph_DS implements weighted_graph , Serializable{
 }
 
 //______________________________________________________________________________________________________________________
- class WNodeInfo implements node_info , Comparable<node_info>, Serializable {
+ class WNodeInfo implements node_info , Comparable, Serializable {
     //Variables of node_info
     private int ID;                 //node's ID
     private static int StatID = 0;  //global ID, starts with 1
@@ -335,8 +335,8 @@ public class WGraph_DS implements weighted_graph , Serializable{
     }
 
     @Override
-    public int compareTo(node_info other) {
-            return Double.compare(this.getTag(),other.getTag());
+    public int compareTo(Object other) {
+            return Double.compare(this.getTag(),((node_info)other).getTag());
     }
     @Override
     public int hashCode() {
